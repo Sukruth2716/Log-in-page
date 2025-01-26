@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Profile</title>
+    <style>
+        /* (All CSS styles from the previous response go here) */
+         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #34495e, #2c3e50);
+            color: white;
+            overflow: hidden;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200vw;
+            height: 200vh;
+            background-image: url('https://source.unsplash.com/1920x1080/?artificial-intelligence,ai,technology,machine-learning,abstract');
+            background-repeat: no-repeat;
+            background-size: cover;
+            animation: pan 20s linear infinite;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        @keyframes pan {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(-5%, -2%); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 100px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            color: #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.04);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #2980b9;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 24px);
+            padding: 14px;
+            margin-bottom: 25px;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 17px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: scale(1.02);
+        }
+         button:active{
+            transform: scale(0.98);
+        }
+
+        .profile-info, .user-info {
+            margin-bottom: 18px;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 18px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login">
+        <h1>Login</h1>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button onclick="login()">Login</button>
+        <p id="error-message" style="color: red;"></p>
+    </div>
+
+    <div class="container" id="userInfo" style="display: none;">
+        <h2>User Information</h2>
+        <div class="user-info"><strong>Name:</strong> <span id="user-name"></span></div>
+        <div class="user-info"><strong>Age:</strong> <span id="user-age">23</span></div>
+        <div class="user-info"><strong>Email:</strong> <span id="user-email">balasukruth@gmail.com</span></div>
+        <button onclick="goToProfile()">Go to Profile</button>
+    </div>
+
+    <div class="container" id="profile" style="display: none;">
+        <h2>Personal Profile</h2>
+        <div class="profile-info"><strong>Username:</strong> <span id="profile-username"></span></div>
+        <div class="profile-info"><strong>Email:</strong> <span id="profile-email">balasukruth@gmail.com</span></div>
+        <div class="profile-info"><strong>Bio:</strong> <span id="profile-bio">Myself Sukruth from Jain University doing assignment1</span></div>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <footer>
+        &copy; 2023 My Website. All rights reserved.
+    </footer>
+
+    <script>
+       function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("error-message");
+
+            if (username === "Sukruth" && password === "Sukruth007") {
+                document.getElementById("login").style.display = "none";
+                document.getElementById("userInfo").style.display = "block";
+                document.getElementById("user-name").textContent = username;
+                errorMessage.textContent = "";
+            } else {
+                errorMessage.textContent = "Invalid username or password.";
+            }
+        }
+
+        function goToProfile() {
+            document.getElementById("userInfo").style.display = "none";
+            document.getElementById("profile").style.display = "block";
+            document.getElementById("profile-username").textContent = document.getElementById("username").value;
+        }
+
+        function logout() {
+            document.getElementById("login").style.display = "block";
+            document.getElementById("userInfo").style.display = "none";
+            document.getElementById("profile").style.display = "none";
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+        }
+    </script>
+</body>
+</html>
